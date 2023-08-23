@@ -9,10 +9,17 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// links to note page
 app.get('/notes', (req, res) =>
   res.sendFile(path.join(__dirname, './public/notes.html'))
 );
 
+// links api notes
+app.get('/api/notes', (req, res) =>
+  res.sendFile(path.join(__dirname, './db/db.json'))
+);
+
+// posts notes to db.json
 app.post('/api/notes', (req, res) => {
   console.log(`notes ${req.method} request`)
 
@@ -32,9 +39,10 @@ app.post('/api/notes', (req, res) => {
       console.log(err)
     )
   }
-  
+
 });
 
+// port listener
 app.listen(PORT, () =>
   console.log(`Live at http://127.0.0.1:${PORT}`)
 );
